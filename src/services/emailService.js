@@ -3,11 +3,17 @@ require('dotenv').config();
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // This helps avoid IPv6 network issues on hosting platforms like Render
+  tls: {
+    rejectUnauthorized: false
+  }
 });
 
 const EmailService = {
