@@ -1,5 +1,10 @@
 const nodemailer = require('nodemailer');
+const dns = require('node:dns');
 require('dotenv').config();
+
+// Force Node.js to prefer IPv4 over IPv6. 
+// This fixes the 'ENETUNREACH 2607:f8b0...' error on Render's free tier.
+dns.setDefaultResultOrder('ipv4first');
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
